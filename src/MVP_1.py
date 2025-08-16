@@ -81,10 +81,3 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(app, host="127.0.0.1", port=8000)
-
-"""
-Для запуска сервиса в консоли
-curl -X POST "http://127.0.0.1:8000/add-strings" \ 
-     -H "Content-Type: application/json" \ 
-     -d '{"strings": ["привет", "мир", "python"]}'
-"""
