@@ -129,7 +129,10 @@ docker build -t fastapi-substring-app .
 
 #### 3. Запуск контейнера с именованным томом
 ```bash
-docker run -d -p 8000:8000 \ --name fastapi-container \ -v fastapi-output-data:/app/output \ fastapi-substring-app
+docker run -d -p 8000:8000 \
+  --name fastapi-container \
+  -v fastapi-output-data:/app/output \
+  fastapi-substring-app
 ```
 
 #### 4. Тестирование API -  корневой эндпоинт
