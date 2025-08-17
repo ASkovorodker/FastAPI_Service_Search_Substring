@@ -1,0 +1,14 @@
+Для запуска сервиса в консоли
+curl -X POST "http://127.0.0.1:8000/add-strings" \
+     -H "Content-Type: application/json" \
+     -d '{"strings": ["привет", "мир", "python"]}'
+
+curl -X POST "http://127.0.0.1:8000/add-strings" \
+     -H "Content-Type: application/json" \
+     -d @substr.json
+
+Для очистки массива строк
+curl -X DELETE "http://127.0.0.1:8000/strings"
+
+Для получения текущего массива строк
+curl -X GET "http://127.0.0.1:8000/strings"
