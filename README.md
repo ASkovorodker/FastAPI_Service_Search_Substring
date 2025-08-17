@@ -112,6 +112,66 @@ curl -X DELETE "http://127.0.0.1:8000/strings"
 curl -X GET "http://127.0.0.1:8000/strings"
 ```
 
+## Контейнеризация
+Используем именованный том для доступа к выходному файлу json с результатами работы программы
+
+### Создание и запуск контейнера
+
+#### 1. Создание именованного тома
+```bash
+docker volume create fastapi-output-data
+```
+
+#### 2. Сборка Docker образа
+```bash
+docker build -t fastapi-substring-app .
+```
+
+#### 3. Запуск контейнера с именованным томом
+```bash
+docker run -d -p 8000:8000 \ --name fastapi-container \ -v fastapi-output-data:/app/output \ fastapi-substring-app
+```
+
+#### 4. Тестирование API -  корневой эндпоинт
+```bash
+curl -X GET "http://localhost:8000/"
+```
+
+#### 5. Отправка json файла с массивом строк
+Берем команду curl из Инструкций по развертыванию приложения
+
+#### 6. Просмотр созданного выходного файла
+```bash
+docker run --rm -v fastapi-output-data:/data busybox cat /data/output.json
+```
+
+#### 7. Копирования файла из тома на хост
+```bash
+docker run --rm -v fastapi-output-data:/data -v $(pwd):/backup busybox cp /data/output.json /backup/result.json
+```
+
+### Команды удаления и очистки
+
+#### 1. Остановка контейнера
+```bash
+docker stop fastapi-container
+```
+
+#### 2. Удаление контейнера
+```bash
+docker rm fastapi-container
+```
+
+#### 3. Удаление тома
+```bash
+docker volume rm fastapi-output-data
+```
+
+#### 4. Удаление образа
+```bash
+docker rmi fastapi-substring-app
+```
+
 ## Структура проекта
 
 ```
@@ -124,7 +184,10 @@ fastapi-substring-project/
 ├── requirements.txt              # Зависимости проекта
 ├── README.md                     # Документация
 ├── curl_commands.txt             # Примеры запросов curl
-└── output.json                   # Выходной файл (создается автоматически)
+├── output.json                   # Выходной файл (создается автоматически)
+├── Dockerfile                    # Docker конфигурация
+├── docker-compose.yml           # Docker Compose конфигурация
+└── .dockerignore                # Файлы для исключения из Docker контекста
 ```
 
 ## Алгоритм работы
