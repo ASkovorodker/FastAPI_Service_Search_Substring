@@ -14,8 +14,6 @@ def find_longest_common_substring(strings):
     if len(base_string) == 0:
         return ""
 
-    longest_common = ""
-
     # Проверяем от самых длинных подстрок к коротким
     for length in range(len(base_string), 0, -1):
         for start in range(len(base_string) - length + 1):
