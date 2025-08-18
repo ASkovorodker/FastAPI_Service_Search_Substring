@@ -150,7 +150,7 @@ docker run --rm -v fastapi-output-data:/data busybox cat /data/output.json
 
 #### 7. Копирования файла из тома на хост
 ```bash
-docker run --rm -v fastapi-output-data:/data -v $(pwd):/backup busybox cp /data/output.json /backup/result.json
+docker run --rm -v fastapi-output-data:/data -v "$(pwd)":/backup busybox cp /data/output.json /backup/result.json
 ```
 
 ### Команды удаления и очистки
